@@ -8,6 +8,15 @@
 </head>
 <body>
     <h1>Crear post</h1>
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $e)
+            <div class="error">
+                {{$e}}
+            </div>
+        @endforeach
+    @endif
+
     <form action="{{ route('post.store') }}" method="POST">
         @csrf
         <label for="">Titulo</label>
@@ -22,8 +31,21 @@
         <label for="">Autor</label>
         <input type="text" name="autor" id="autor">
 
+        <label for="">Prestado</label>
+        <select name="prestado" id="prestado">
+            <option value="si" selected>Si</option>
+            <option value="no">No</option>
+        </select>
+
 
         <button type="submit">Enviar</button>
+        
+        <select name="libros" id="libros">
+            @foreach ($ejemplo as $titulo => $id)
+                <option value="{{ $id }}">{{$titulo}}</option>
+            @endforeach
+        </select>
     </form>
+
 </body>
 </html>

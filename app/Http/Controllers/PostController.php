@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEjemploRequest;
+use App\Models\Categorias;
+use App\Models\Ejemplo;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -20,15 +24,27 @@ class PostController extends Controller
      */
     public function create()
     {
-        echo view('dashboard.post.create');
+        $ejemplo = Ejemplo::pluck('id','titulo');
+        //dd($ejemplo);
+        //dd($ejemplo[0]->titulo);
+
+        
+        echo view('dashboard.post.create', compact('ejemplo'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEjemploRequest $request)
     {
         echo "store";
+
+        //Meter datos en la consulta
+        //$data = array_merge($request->all(),['image' => '']);
+        //Ejemplo::create($data);
+
+        Ejemplo::create($request->all());
+
         //dd($request);
         //dd(request("titulo"));
 
